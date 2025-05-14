@@ -5,7 +5,7 @@ document.getElementById("itemForm").addEventListener("submit", async function (e
   e.preventDefault();
 
   const fileInput = document.getElementById("image");
-  let imageUrl = "";
+  let imageUrl = ""; 
 
   if (fileInput.files[0]) {
     const file = fileInput.files[0];
