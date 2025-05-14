@@ -4,22 +4,16 @@ const bodyParser = require('body-parser');
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { PutCommand, ScanCommand, DynamoDBDocumentClient } = require('@aws-sdk/lib-dynamodb');
 
-// AWS Configuration
 const REGION = 'us-east-1'; // 🔁 Replace with your AWS region
 const ddbClient = new DynamoDBClient({ region: REGION });
 const docClient = DynamoDBDocumentClient.from(ddbClient);
 
-// Express Setup
 const app = express();
 const port = 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
-
-// Table Name
 const TABLE_NAME = 'InventoryItems';
-
-// Add Inventory Item
 app.post('/add-item', async (req, res) => {
   const { itemId, name, quantity, imageUrl } = req.body;
 
@@ -46,8 +40,6 @@ app.post('/add-item', async (req, res) => {
     res.status(500).json({ error: 'Could not add item' });
   }
 });
-
-// Get All Inventory Items
 app.get('/items', async (req, res) => {
   try {
     const data = await docClient.send(new ScanCommand({
